@@ -1,0 +1,27 @@
+{
+  "name": "kaboom-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodrigoWebDev/kaboom-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RodrigoWebDev/kaboom-game/issues"
+  },
+  "homepage": "https://github.com/RodrigoWebDev/kaboom-game#readme",
+  "devDependencies": {
+    "parcel": "^2.6.1",
+    "standard": "^17.0.0"
+  },
+  "dependencies": {
+    "kaboom": "^2000.2.9"
+  }
+}
