@@ -2,6 +2,7 @@ import kaboom from "kaboom"
 
 // Objects
 import player from "./objects/player"
+import bg from "./objects/bg"
 
 // Misc
 import loadAssets from "./misc/loadAssets"
@@ -18,9 +19,10 @@ const start = () => {
 }
 
 scene("game", ({ levelId = 0, coins = 0 }) => {
-    gravity(2000)
+    gravity(800)
     camScale(2)
     addLevel(levels[levelId ?? 0], levelConfig(vec2))
+    // bg()
     player()
 })
 

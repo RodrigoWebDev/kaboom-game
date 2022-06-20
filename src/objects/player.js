@@ -1,6 +1,10 @@
+const initalConfig = {
+    moveSpeed: 150
+}
+
 const config = {
-    moveSpeed: 240,
-    jumpForce: 600
+    moveSpeed: initalConfig.moveSpeed,
+    jumpForce: 400
 }
 
 const player = () => {
@@ -8,7 +12,8 @@ const player = () => {
         sprite("hero"),
         pos(100, 0),
         area(),
-        body()
+        body(),
+        "player"
     ])
 
     playerObj.play("idle")
@@ -49,10 +54,30 @@ const player = () => {
         }
     })
 
-    onKeyDown("space", () => {
+    onKeyDown("x", () => {
         if(playerObj.isGrounded()){
             playerObj.play("jump")
             playerObj.jump(config.jumpForce)
+        }
+    })
+
+    onKeyDown("z", () => {
+        if(isKeyDown("left") || isKeyDown("right")){
+            config.moveSpeed = 400
+            playerObj.animSpeed = 5
+        }
+    })
+
+    onKeyRelease("z", () => {
+        config.moveSpeed = initalConfig.moveSpeed
+        playerObj.animSpeed = 1
+    })
+
+    onUpdate("player", (player) => {
+        //console.log({ player })
+
+        if(player.falling() && !player.isGrounded()){
+            playerObj.play("fall")
         }
     })
 }
