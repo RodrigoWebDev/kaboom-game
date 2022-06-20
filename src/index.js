@@ -30,16 +30,16 @@ loadSpriteAtlas(heroAtlas, {
 				"loop": true
 			},
 			"run": {
-				"from": 25,
-				"to": 37,
+				"from": 24,
+				"to": 36,
 				"speed": 20,
 				"loop": true
 			},
             "jump": {
 				"from": 25,
-				"to": 37,
-				"speed": 20,
-				"loop": true
+				"to": 25,
+				"speed": 1,
+				"loop": false
 			},
 			"hit": 8
 		}
@@ -133,6 +133,14 @@ const playerMechanics = () => {
         camPos(playerObj.pos)
     })
 
+    playerObj.onGround(() => {
+        if (!isKeyDown("left") && !isKeyDown("right")) {
+            playerObj.play("idle")
+        } else {
+            playerObj.play("run")
+        }
+    })
+
     onKeyDown("left", () => {
         playerObj.move(-player.moveSpeed, 0)
         playerObj.flipX(true)
@@ -159,8 +167,8 @@ const playerMechanics = () => {
 
     onKeyDown("space", () => {
         if(playerObj.isGrounded()){
-            playerObj.jump(player.jumpForce)
             playerObj.play("jump")
+            playerObj.jump(player.jumpForce)
         }
     })
 }
