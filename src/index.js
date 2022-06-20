@@ -5,7 +5,7 @@ import grassTopRight from "./assets/terrain/grass/topRight.jpg"
 import grassBottomLeft from "./assets/terrain/grass/bottomLeft.jpg"
 import grassBottomMiddle from "./assets/terrain/grass/bottomMiddle.jpg"
 import grassBottomRight from "./assets/terrain/grass/bottomRight.jpg"
-import ninjaFrogIdle from "./assets/ninjaFrog/idle.png"
+import heroAtlas from "./assets/heroAtlas.png"
 
 kaboom()
 loadSprite('grassTopLeft', grassTopLeft)
@@ -15,24 +15,30 @@ loadSprite('grassBottomLeft', grassBottomLeft)
 loadSprite('grassBottomMiddle', grassBottomMiddle)
 loadSprite('grassBottomRight', grassBottomRight)
 
-loadSpriteAtlas(ninjaFrogIdle, {
+loadSpriteAtlas(heroAtlas, {
     "hero": {
         "x": 0,
 		"y": 0,
-		"width": 352,
+		"width": 1376,
 		"height": 32,
-		"sliceX": 11,
+		"sliceX": 43,
         "anims": {
 			"idle": {
-				"from": 0,
-				"to": 10,
+				"from": 14,
+				"to": 24,
 				"speed": 20,
 				"loop": true
 			},
 			"run": {
-				"from": 4,
-				"to": 7,
-				"speed": 10,
+				"from": 25,
+				"to": 37,
+				"speed": 20,
+				"loop": true
+			},
+            "jump": {
+				"from": 25,
+				"to": 37,
+				"speed": 20,
 				"loop": true
 			},
 			"hit": 8
@@ -115,14 +121,13 @@ const start = () => {
 
 const playerMechanics = () => {
     const playerObj = add([
-        sprite("hero", {
-            anim: "idle"
-        }),
-        
+        sprite("hero"),
         pos(100, 0),
         area(),
         body()
     ])
+
+    playerObj.play("idle")
 
     playerObj.onUpdate(() => {
         camPos(playerObj.pos)
@@ -130,15 +135,32 @@ const playerMechanics = () => {
 
     onKeyDown("left", () => {
         playerObj.move(-player.moveSpeed, 0)
+        playerObj.flipX(true)
+
+        if (playerObj.isGrounded() && playerObj.curAnim() !== "run") {
+            playerObj.play("run")
+        }
     })
 
     onKeyDown("right", () => {
         playerObj.move(player.moveSpeed, 0)
+        playerObj.flipX(false)
+
+        if (playerObj.isGrounded() && playerObj.curAnim() !== "run") {
+            playerObj.play("run")
+        }
+    })
+
+    onKeyRelease(["left", "right"], () => {
+        if (playerObj.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+            playerObj.play("idle")
+        }
     })
 
     onKeyDown("space", () => {
         if(playerObj.isGrounded()){
             playerObj.jump(player.jumpForce)
+            playerObj.play("jump")
         }
     })
 }
