@@ -18,40 +18,35 @@ const player = () => {
 
     playerObj.play("idle")
 
-    playerObj.onUpdate(() => {
+    onUpdate("player", (player) => {
         camPos(playerObj.pos)
+
+        if(player.falling() && !player.isGrounded()) playerObj.play("fall")
     })
 
     playerObj.onGround(() => {
-        if (!isKeyDown("left") && !isKeyDown("right")) {
-            playerObj.play("idle")
-        } else {
-            playerObj.play("run")
-        }
+        if(!isKeyDown("left") && !isKeyDown("right")) playerObj.play("idle")
+        else playerObj.play("run")
     })
 
     onKeyDown("left", () => {
         playerObj.move(-config.moveSpeed, 0)
         playerObj.flipX(true)
 
-        if (playerObj.isGrounded() && playerObj.curAnim() !== "run") {
-            playerObj.play("run")
-        }
+        if(playerObj.isGrounded() && playerObj.curAnim() !== "run") playerObj.play("run")
     })
 
     onKeyDown("right", () => {
         playerObj.move(config.moveSpeed, 0)
         playerObj.flipX(false)
 
-        if (playerObj.isGrounded() && playerObj.curAnim() !== "run") {
-            playerObj.play("run")
-        }
+        if(playerObj.isGrounded() && playerObj.curAnim() !== "run") playerObj.play("run")
+        
     })
 
     onKeyRelease(["left", "right"], () => {
-        if (playerObj.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
-            playerObj.play("idle")
-        }
+        if(playerObj.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) playerObj.play("idle")
+        
     })
 
     onKeyDown("x", () => {
@@ -64,21 +59,13 @@ const player = () => {
     onKeyDown("z", () => {
         if(isKeyDown("left") || isKeyDown("right")){
             config.moveSpeed = 400
-            playerObj.animSpeed = 5
+            playerObj.animSpeed = 3
         }
     })
 
     onKeyRelease("z", () => {
         config.moveSpeed = initalConfig.moveSpeed
         playerObj.animSpeed = 1
-    })
-
-    onUpdate("player", (player) => {
-        //console.log({ player })
-
-        if(player.falling() && !player.isGrounded()){
-            playerObj.play("fall")
-        }
     })
 }
 
