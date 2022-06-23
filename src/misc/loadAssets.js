@@ -6,6 +6,7 @@ import grassBottomMiddle from "../assets/terrain/grass/bottomMiddle.jpg"
 import grassBottomRight from "../assets/terrain/grass/bottomRight.jpg"
 import bgSprite from "../assets/bg0.png"
 import heroAtlas from "../assets/heroAtlas.png"
+import coinAtlas from "../assets/coinAtlas.png"
 
 const loadAssets = () => {
     loadSprite('grassTopLeft', grassTopLeft)
@@ -47,6 +48,25 @@ const loadAssets = () => {
                     "to": 6,
                     "speed": 1,
                     "loop": false
+                },
+                "hit": 8
+            }
+        }
+    })
+
+    loadSpriteAtlas(coinAtlas, {
+        "coin": {
+            "x": 0,
+            "y": 0,
+            "width": 544,
+            "height": 32,
+            "sliceX": 17,
+            "anims": {
+                "idle": {
+                    "from": 0,
+                    "to": 16,
+                    "speed": 30,
+                    "loop": true
                 },
                 "hit": 8
             }
