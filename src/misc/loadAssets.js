@@ -4,10 +4,11 @@ import grassTopRight from "../assets/terrain/grass/topRight.jpg"
 import grassBottomLeft from "../assets/terrain/grass/bottomLeft.jpg"
 import grassBottomMiddle from "../assets/terrain/grass/bottomMiddle.jpg"
 import grassBottomRight from "../assets/terrain/grass/bottomRight.jpg"
-import bgSprite from "../assets/bg0.png"
 import heroAtlas from "../assets/heroAtlas.png"
 import coinAtlas from "../assets/coinAtlas.png"
 import collectedAtlas from "../assets/collectedAtlas.png"
+import bg0 from "../assets/bg0.png"
+
 
 const loadAssets = () => {
     loadSprite('grassTopLeft', grassTopLeft)
@@ -16,7 +17,7 @@ const loadAssets = () => {
     loadSprite('grassBottomLeft', grassBottomLeft)
     loadSprite('grassBottomMiddle', grassBottomMiddle)
     loadSprite('grassBottomRight', grassBottomRight)
-    loadSprite('bgSprite', bgSprite)
+    loadSprite("bg0", bg0)
 
     loadSpriteAtlas(heroAtlas, {
         "hero": {

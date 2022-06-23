@@ -2,8 +2,8 @@ import kaboom from "kaboom"
 
 // Objects
 import player from "./objects/player"
-import bg from "./objects/bg"
 import coinsLabel from "./objects/coinsLabel"
+import bg0 from "./objects/bg0"
 
 // Misc
 import loadAssets from "./misc/loadAssets"
@@ -45,10 +45,10 @@ scene("game", ({ levelId = 0, coins = 0 }) => {
     gravity(800)
     camScale(2)
     addLevel(levels[levelId ?? 0], levelConfig(vec2))
-    // bg()
+    bg0()
     player(incrementCoins, coins)
-    console.log(get("player"))
     coinsLabel()
+
 })
 
 start()
