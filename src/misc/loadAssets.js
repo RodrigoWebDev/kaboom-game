@@ -4,7 +4,7 @@ import grassTopRight from '../assets/terrain/grass/topRight.jpg'
 import grassBottomLeft from '../assets/terrain/grass/bottomLeft.jpg'
 import grassBottomMiddle from '../assets/terrain/grass/bottomMiddle.jpg'
 import grassBottomRight from '../assets/terrain/grass/bottomRight.jpg'
-import heroAtlas from '../assets/heroAtlas.png'
+import heroAtlas from '../assets/newHeroAtlas0.png'
 import coinAtlas from '../assets/coinAtlas.png'
 import collectedAtlas from '../assets/collectedAtlas.png'
 import bg0 from '../assets/bg0.png'
@@ -22,9 +22,9 @@ const loadAssets = () => {
     hero: {
       x: 0,
       y: 0,
-      width: 1376,
+      width: 1568,
       height: 32,
-      sliceX: 43,
+      sliceX: 49,
       anims: {
         idle: {
           from: 14,
@@ -48,6 +48,12 @@ const loadAssets = () => {
           from: 6,
           to: 6,
           speed: 1,
+          loop: false
+        },
+        attack: {
+          from: 43,
+          to: 48,
+          speed: 20,
           loop: false
         },
         hit: 8

@@ -4,37 +4,40 @@ const initalConfig = {
 
 const config = {
   moveSpeed: initalConfig.moveSpeed,
-  jumpForce: 400
+  jumpForce: 400,
+  isAttacking: false
 }
 
-const playerMovment = (player) => {
+const playerActions = (player) => {
   onUpdate('player', (player) => {
     camPos(player.pos)
 
-    if (player.falling() && !player.isGrounded()) player.play('fall')
+    if (player.falling() && !player.isGrounded() && !config.isAttacking) player.play('fall')
   })
 
   player.onGround(() => {
-    if (!isKeyDown('left') && !isKeyDown('right')) player.play('idle')
+    if (!isKeyDown('left') && !isKeyDown('right') && !config.isAttacking) player.play('idle')
     else player.play('run')
   })
+
+  const canPlayRunAnimation = () => player.isGrounded() && player.curAnim() !== 'run' && !config.isAttacking
 
   onKeyDown('left', () => {
     player.move(-config.moveSpeed, 0)
     player.flipX(true)
 
-    if (player.isGrounded() && player.curAnim() !== 'run') player.play('run')
+    if (canPlayRunAnimation()) player.play('run')
   })
 
   onKeyDown('right', () => {
     player.move(config.moveSpeed, 0)
     player.flipX(false)
 
-    if (player.isGrounded() && player.curAnim() !== 'run') player.play('run')
+    if (canPlayRunAnimation()) player.play('run')
   })
 
   onKeyRelease(['left', 'right'], () => {
-    if (player.isGrounded() && !isKeyDown('left') && !isKeyDown('right')) player.play('idle')
+    if (player.isGrounded() && !isKeyDown('left') && !isKeyDown('right') && !config.isAttacking) player.play('idle')
   })
 
   onKeyDown('x', () => {
@@ -54,6 +57,18 @@ const playerMovment = (player) => {
   onKeyRelease('z', () => {
     config.moveSpeed = initalConfig.moveSpeed
     player.animSpeed = 1
+  })
+
+  onKeyPress("c", () => {
+    config.isAttacking = true
+    player.play('attack', {
+      onEnd: () => {
+        /* console.log({player})
+        console.log('player.curAnim()', player.curAnim()) */
+        config.isAttacking = false
+        player.play("idle")
+      }
+    })
   })
 }
 
@@ -75,7 +90,7 @@ const player = (incrementCoins = () => {}) => {
 
   playerObj.play('idle')
 
-  playerMovment(playerObj)
+  playerActions(playerObj)
   playerGetCoin(playerObj, incrementCoins)
 }
 
